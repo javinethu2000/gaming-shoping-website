@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVault - Your Ultimate Gaming Destination</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f1923;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #0a111a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff3e6c;
+        }
+        
+        .logo span {
+            color: #47dcff;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links li a {
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links li a:hover {
+            background-color: #1d2e42;
+        }
+        
+        .active {
+            background-color: #1d2e42;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff3e6c;
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background-color: #ff3e6c;
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #ff2a5f;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/500') center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #47dcff;
+            color: #47dcff;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #47dcff;
+            color: #0f1923;
+        }
+        
+        /* Featured Games */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #47dcff;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-card {
+            background-color: #1d2e42;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .game-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff3e6c;
+            margin-bottom: 15px;
+        }
+        
+        .discount {
+            background-color: #ff3e6c;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #aaa;
+            font-size: 16px;
+            font-weight: normal;
+            margin-left: 5px;
+        }
+        
+        .game-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* Promotions Section */
+        .promotions {
+            background-color: #1d2e42;  
+        }
+        
+        .promo-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .promo-card {
+            flex: 1;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/600/300') center/cover;
+            padding: 30px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 300px;
+        }
+        
+        .promo-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .promo-text {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        /* New Releases */
+        .new-releases {
+            background-color: #0a111a;
+        }
+        
+        /* Categories Section */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .category {
+            background-color: #1d2e42;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .category:hover {
+            background-color: #2a4059;
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: #47dcff;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: #1d2e42;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #47dcff;
+        }
+        
+        .newsletter-text {
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .newsletter-btn {
+            background-color: #3eecff;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a111a;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #47dcff;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #1d2e42;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: #ff3e6c;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #1d2e42;
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .promo-container {
+                flex-direction: column;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-input {
+                border-radius: 4px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Playtrix</div>
+                
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <div class="user-actions">
+                    <div class="cart-icon">
+                        <a href="cart.html">🛒</a>
+                        <div class="cart-count">3</div>
+                    </div>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Level Up Your Game. Rewrite the Rules.</h1>
+                <p class="hero-subtitle">A hub for fearless players, epic battles, and limitless creativity.</p>
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-primary">Browse Games</a>
+                    <a href="register.html" class="btn btn-secondary">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Games Section -->
+    <section class="section featured-games">
+        <div class="container">
+            <h2 class="section-title">Featured Games</h2>
+            <div class="games-grid">
+                <!-- Game Card 1 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="Game 1" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Cyber Odyssey 2077</h3>
+                        <div class="game-price">
+                            $49.99 <span class="discount">-20%</span>
+                            <span class="original-price">$59.99</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>Action RPG</span>
+                            <span>⭐ 4.8/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Game Card 2 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="Game 2" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Legends of Valoria</h3>
+                        <div class="game-price">
+                            $39.99 <span class="discount">-33%</span>
+                            <span class="original-price">$59.99</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>MMORPG</span>
+                            <span>⭐ 4.5/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Game Card 3 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="Game 3" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Space Frontier X</h3>
+                        <div class="game-price">
+                            LKR7000
+                        </div>
+                        <div class="game-meta">
+                            <span>Strategy</span>
+                            <span>⭐ 4.7/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Game Card 4 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="Game 4" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Eternal Racing GT</h3>
+                        <div class="game-price">
+                            $44.99 <span class="discount">-10%</span>
+                            <span class="original-price">LKR.5000</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>Racing</span>
+                            <span>⭐ 4.6/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Promotions Section -->
+    <section class="section promotions">
+        <div class="container">
+            <h2 class="section-title">Hot Deals & Promotions</h2>
+            <div class="promo-container">
+                <div class="promo-card">
+                    <h3 class="promo-title">Summer Sale</h3>
+                    <p class="promo-text">Get up to 70% off on selected titles. Limited time offer!</p>
+                    <a href="promotions.html" class="btn btn-primary">View Deals</a>
+                </div>
+                <div class="promo-card">
+                    <h3 class="promo-title">Pre-order Bonus</h3>
+                    <p class="promo-text">Pre-order upcoming games and receive exclusive in-game content</p>
+                    <a href="preorders.html" class="btn btn-primary">Pre-order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- New Releases Section -->
+    <section class="section new-releases">
+        <div class="container">
+            <h2 class="section-title">New Releases</h2>
+            <div class="games-grid">
+                <!-- New Release 1 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="New Game 1" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Shadow Protocol</h3>
+                        <div class="game-price">
+                            LKR.10000 <span class="discount">New!</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>Stealth Action</span>
+                            <span>⭐ 4.9/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- New Release 2 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="New Game 2" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Mystic Realms</h3>
+                        <div class="game-price">
+                        LKR.9000 <span class="discount">New!</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>Fantasy RPG</span>
+                            <span>⭐ 4.7/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- New Release 3 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="New Game 3" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Velocity Surge</h3>
+                        <div class="game-price">
+                            LKR.8000 <span class="discount">New!</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>Racing</span>
+                            <span>⭐ 4.8/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- New Release 4 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/180" alt="New Game 4" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Tactical Force</h3>
+                        <div class="game-price">
+                            LKR.8500 <span class="discount">New!</span>
+                        </div>
+                        <div class="game-meta">
+                            <span>FPS</span>
+                            <span>⭐ 4.6/5</span>
+                        </div>
+                        <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Game Categories Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="categories">
+                <a href="category.html" class="category">
+                    <div class="category-icon">🎮</div>
+                    <h3>Action</h3>
+                </a>
+                <a href="category.html" class="category">
+                    <div class="category-icon">🏰</div>
+                    <h3>RPG</h3>
+                </a>
+                <a href="category.html" class="category">
+                    <div class="category-icon">🚗</div>
+                    <h3>Racing</h3>
+                </a>
+                <a href="category.html" class="category">
+                    <div class="category-icon">🧩</div>
+                    <h3>Puzzle</h3>
+                </a>
+                <a href="category.html" class="category">
+                    <div class="category-icon">⚔️</div>
+                    <h3>Strategy</h3>
+                </a>
+                <a href="category.html" class="category">
+                    <div class="category-icon">👾</div>
+                    <h3>Arcade</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Join Our Newsletter</h2>
+                <p class="newsletter-text">Subscribe to get exclusive deals, game alerts, and special offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>GameVault</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="press.html">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>My Account</h3>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="orders.html">Order History</a></li>
+                        <li><a href="wishlist.html">Wishlist</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">fb</a>
+                        <a href="#" class="social-icon">tw</a>
+                        <a href="#" class="social-icon">ig</a>
+                        <a href="#" class="social-icon">yt</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 GameVault. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
